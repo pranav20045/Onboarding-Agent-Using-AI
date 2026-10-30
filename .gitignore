@@ -1,0 +1,39 @@
+# Secrets
+.env
+.env.*
+!.env.example
+
+# Runtime data (clones, graphs, SQLite, Qdrant storage)
+/data/
+/qdrant_storage/
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+.pytest_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+
+# Built fixture repos (nested git repos; rebuilt by script)
+backend/tests/fixtures/.build/
+
+# Node / frontend
+node_modules/
+frontend/.next/
+frontend/out/
+frontend/test-results/
+frontend/playwright-report/
+
+# Eval: raw run outputs ARE committed (eval/results/), caches are not
+eval/.cache/
+
+# OS / editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Extra CA certificates for image builds behind TLS-intercepting proxies
+docker/certs/*.crt

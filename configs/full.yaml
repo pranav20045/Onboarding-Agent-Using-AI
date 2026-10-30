@@ -1,0 +1,7 @@
+# Full indexed_agent: AST chunks, hybrid search, reranker, graph tools, history tools.
+system: indexed_agent
+chunking: ast
+search_mode: hybrid
+rerank: true
+graph_tools: true
+history_tools: true

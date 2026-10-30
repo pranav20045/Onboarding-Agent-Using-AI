@@ -1,0 +1,72 @@
+[project]
+name = "codeatlas-backend"
+version = "0.1.0"
+description = "CodeAtlas backend: codebase onboarding assistant (indexing, agents, API)"
+requires-python = ">=3.11,<3.13"
+dependencies = [
+    "anthropic==1.13.0",
+    "fastapi==0.162.0",
+    "fastembed==0.9.0",
+    "httpx==0.28.1",
+    "networkx==3.6.1",
+    "openai==3.28.0",
+    "pydantic==2.14.1",
+    "pydantic-settings==2.16.1",
+    "pydriller==2.12",
+    "pyyaml==6.0.3",
+    "qdrant-client==1.19.1",
+    "tree-sitter==0.25.2",
+    "tree-sitter-python==0.25.0",
+    "uvicorn==0.54.0",
+]
+
+[project.optional-dependencies]
+tracing = [
+    "langfuse==4.17.0",
+]
+eval = [
+    "matplotlib==3.11.2",
+]
+
+[tool.uv]
+package = false
+required-version = ">=0.13.5,<0.14"
+
+[dependency-groups]
+dev = [
+    "pytest==9.1.1",
+    "pytest-asyncio==1.4.0",
+    "ruff==0.17.2",
+]
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+extend-exclude = ["tests/fixtures/.build"]
+
+[tool.ruff.lint]
+# S602/S604/S605 flag shell=True / os.system: we never run shell strings (BUILD_PROMPT §5.4, §5.7).
+select = ["E", "F", "W", "I", "B", "UP", "SIM", "S", "RUF"]
+ignore = [
+    "E501",  # line length is enforced by `ruff format`; remaining hits are long strings
+    "B008",  # FastAPI's `Depends(...)` in argument defaults is the framework's intended pattern
+    "RUF005",  # tuple concatenation is clearer than unpacking in our few uses
+    "S603",  # subprocess call without shell: this is the pattern we *want* (args as a list)
+    "S607",  # partial executable path ("git", "rg"): resolved via PATH on purpose
+]
+
+[tool.ruff.lint.per-file-ignores]
+"tests/**" = ["S101", "S105", "S106", "S108"]  # asserts, dummy test secrets, tmp paths
+
+[tool.ruff.format]
+quote-style = "double"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = [".", ".."]  # backend (app) and repo root (eval)
+asyncio_mode = "auto"
+asyncio_default_fixture_loop_scope = "function"
+markers = [
+    "integration: needs external services (Qdrant, network); skipped when unavailable",
+    "live_llm: calls a real LLM API; skipped when no API key is configured",
+]

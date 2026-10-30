@@ -1,0 +1,7 @@
+# indexed_agent ablation step 1: AST chunking only (dense search, no reranker, no graph/history tools).
+system: indexed_agent
+chunking: ast
+search_mode: dense
+rerank: false
+graph_tools: false
+history_tools: false

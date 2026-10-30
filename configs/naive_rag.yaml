@@ -1,0 +1,6 @@
+# Weak baseline: fixed-size chunks, dense-only retrieval, no reranker, one LLM call.
+system: naive_rag
+chunking: fixed
+search_mode: dense
+rerank: false
+top_k: 8

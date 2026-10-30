@@ -1,0 +1,7 @@
+# Step 2: + hybrid search (dense + BM25 fused with RRF).
+system: indexed_agent
+chunking: ast
+search_mode: hybrid
+rerank: false
+graph_tools: false
+history_tools: false

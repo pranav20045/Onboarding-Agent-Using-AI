@@ -1,0 +1,111 @@
+@import "tailwindcss";
+
+/* Class-based dark mode; the initial class follows the OS preference (see layout.tsx). */
+@custom-variant dark (&:where(.dark, .dark *));
+
+:root {
+  --bg: #f7f7f8;
+  --card: #ffffff;
+  --fg: #16181d;
+  --muted: #4f5663;
+  --line: #e2e4e9;
+  --accent: #2a49b8;
+  --accent-fg: #ffffff;
+  --ok: #136a2b;
+  --warn: #7a5200;
+  --bad: #b01f1f;
+  --hl: rgba(255, 213, 79, 0.35);
+}
+
+.dark {
+  --bg: #0f1115;
+  --card: #171a21;
+  --fg: #e6e8ec;
+  --muted: #9aa3b2;
+  --line: #2a2f3a;
+  --accent: #7c9bff;
+  --accent-fg: #0f1115;
+  --ok: #3fb950;
+  --warn: #d29922;
+  --bad: #f85149;
+  --hl: rgba(255, 213, 79, 0.18);
+}
+
+@theme {
+  --color-bg: var(--bg);
+  --color-card: var(--card);
+  --color-fg: var(--fg);
+  --color-muted: var(--muted);
+  --color-line: var(--line);
+  --color-accent: var(--accent);
+  --color-accent-fg: var(--accent-fg);
+  --color-ok: var(--ok);
+  --color-warn: var(--warn);
+  --color-bad: var(--bad);
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+}
+
+html,
+body {
+  background: var(--bg);
+  color: var(--fg);
+}
+
+/* Shiki dual themes: switch token colours with the .dark class */
+.shiki,
+.shiki span {
+  background-color: transparent !important;
+}
+.dark .shiki,
+.dark .shiki span {
+  color: var(--shiki-dark) !important;
+}
+.shiki .line.hl {
+  background: var(--hl);
+  display: inline-block;
+  width: 100%;
+}
+.shiki .line::before {
+  content: attr(data-line);
+  display: inline-block;
+  width: 3.5em;
+  margin-right: 1em;
+  text-align: right;
+  color: var(--muted);
+  user-select: none;
+}
+
+.prose-answer p {
+  margin: 0.5rem 0;
+}
+.prose-answer ul,
+.prose-answer ol {
+  margin: 0.5rem 0 0.5rem 1.25rem;
+  list-style: disc;
+}
+.prose-answer ol {
+  list-style: decimal;
+}
+.prose-answer code {
+  font-family: var(--font-mono);
+  font-size: 0.85em;
+  background: color-mix(in srgb, var(--line) 60%, transparent);
+  padding: 0.05rem 0.3rem;
+  border-radius: 0.25rem;
+}
+.prose-answer pre {
+  overflow-x: auto;
+  padding: 0.75rem;
+  border-radius: 0.5rem;
+  background: color-mix(in srgb, var(--line) 40%, transparent);
+}
+.prose-answer pre code {
+  background: none;
+  padding: 0;
+}
+.prose-answer h1,
+.prose-answer h2,
+.prose-answer h3 {
+  font-weight: 600;
+  margin: 0.75rem 0 0.25rem;
+}

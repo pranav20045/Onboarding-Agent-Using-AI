@@ -1,0 +1,7 @@
+# Step 4: + code graph tools (find_definition / find_callers / find_callees).
+system: indexed_agent
+chunking: ast
+search_mode: hybrid
+rerank: true
+graph_tools: true
+history_tools: false

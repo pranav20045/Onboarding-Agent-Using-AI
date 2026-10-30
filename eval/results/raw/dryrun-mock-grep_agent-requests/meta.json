@@ -1,0 +1,53 @@
+{
+ "run_id": "dryrun-mock-grep_agent-requests",
+ "created_at": "2026-10-27T17:40:11+00:00",
+ "mock": true,
+ "config_file": "configs/grep_agent.yaml",
+ "config": {
+  "system": "grep_agent",
+  "chunking": "ast",
+  "search_mode": "hybrid",
+  "rerank": true,
+  "rerank_candidates": 30,
+  "top_k": 8,
+  "graph_tools": true,
+  "history_tools": true,
+  "grep_agent_github": false,
+  "max_tool_calls": 10,
+  "max_tokens": 250000,
+  "tool_output_max_chars": 12000,
+  "answer_max_tokens": 4096,
+  "llm_provider": "anthropic",
+  "llm_model": "claude-opus-5-5",
+  "verify": true,
+  "revision_pass": true
+ },
+ "model": "mock-llm",
+ "judge_model": "mock",
+ "codeatlas_version": "nogit-src-5910bc0a2c349678",
+ "dataset": "eval/datasets/requests.jsonl",
+ "dataset_sha256": "6297730fd5b0a4f21f00938a0b9cafe3cc500909bfb6859b15d5123c0c873293",
+ "include_unverified": true,
+ "question_ids": [
+  "requests-001",
+  "requests-002",
+  "requests-003",
+  "requests-004",
+  "requests-005"
+ ],
+ "repos": [
+  "psf__requests"
+ ],
+ "commit_shas": [
+  "611c6162cbc4ac2020a2f91c7cfa4f3abf9bbb60"
+ ],
+ "embedding": {
+  "dense": "jinaai/jina-embeddings-v2-base-code",
+  "sparse": "Qdrant/bm25",
+  "reranker": "jinaai/jina-reranker-v1-turbo-en"
+ },
+ "temperature": "not supported (Anthropic Messages API rejects sampling params)",
+ "python": "3.11.9",
+ "platform": "Windows-10-10.0.26200-SP0",
+ "estimated_cost_usd": null
+}

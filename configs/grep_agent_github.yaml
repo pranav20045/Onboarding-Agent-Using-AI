@@ -1,0 +1,3 @@
+# Fairer history comparison: grep_agent plus a GitHub PR/issue lookup tool.
+system: grep_agent
+grep_agent_github: true

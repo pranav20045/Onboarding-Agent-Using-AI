@@ -1,0 +1,7 @@
+# Step 3: + cross-encoder reranker.
+system: indexed_agent
+chunking: ast
+search_mode: hybrid
+rerank: true
+graph_tools: false
+history_tools: false

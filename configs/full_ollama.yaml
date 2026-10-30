@@ -1,0 +1,4 @@
+# Full system on a self-hosted open model via Ollama (requires `ollama pull qwen2.5-coder:14b`).
+system: indexed_agent
+llm_provider: ollama
+llm_model: qwen2.5-coder:14b

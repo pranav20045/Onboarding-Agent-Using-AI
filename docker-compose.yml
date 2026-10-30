@@ -1,0 +1,52 @@
+# CodeAtlas: Qdrant + backend API + web UI.
+#   cp .env.example .env    # add ANTHROPIC_API_KEY (and GITHUB_TOKEN for history linking)
+#   docker compose up -d --build
+# UI: http://localhost:3000   API: http://localhost:8000
+# The compose project name defaults to the checkout's directory name, so separate checkouts
+# never share containers or volumes.
+services:
+  qdrant:
+    image: qdrant/qdrant:v1.19.2@sha256:b7b0444c4c351c970b98e90a6f89c2ee4287c65b44e52b4cb503fa5b2aa927ad
+    restart: unless-stopped
+    ports:
+      - "127.0.0.1:6333:6333"   # HTTP / REST (localhost only)
+    volumes:
+      - qdrant_storage:/qdrant/storage
+    environment:
+      QDRANT__SERVICE__API_KEY: ${QDRANT_API_KEY:-}
+      QDRANT__TELEMETRY_DISABLED: "true"
+
+  backend:
+    build:
+      context: .
+      dockerfile: backend.Dockerfile
+    restart: unless-stopped
+    env_file:
+      - path: .env
+        required: false
+    environment:
+      DATA_DIR: /data
+      QDRANT_URL: http://qdrant:6333
+      CORS_ORIGINS: '["${PUBLIC_WEB_URL:-http://localhost:3000}"]'
+    volumes:
+      - codeatlas_data:/data      # clones, graphs, SQLite, model cache
+    ports:
+      - "127.0.0.1:8000:8000"
+    depends_on:
+      - qdrant
+
+  frontend:
+    build:
+      context: .
+      dockerfile: frontend.Dockerfile
+      args:
+        NEXT_PUBLIC_API_URL: ${PUBLIC_API_URL:-http://localhost:8000}
+    restart: unless-stopped
+    ports:
+      - "127.0.0.1:3000:3000"
+    depends_on:
+      - backend
+
+volumes:
+  qdrant_storage:
+  codeatlas_data:
